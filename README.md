@@ -4,6 +4,8 @@ This is a small project created to add some convenience features to "Black Deser
 
 It is basically just a transparent WPF application laid on top of the game's client. It uses PInvoke to get information on the game's window-dimensions and location on the screen to be able to adjust the tool's location and dimension appropriate to the game.
 
+This tool only works if the game is run in windowed mode.
+
 --
 --
 Current features in development are:
