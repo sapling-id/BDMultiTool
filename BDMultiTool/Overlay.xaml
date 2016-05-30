@@ -1,0 +1,73 @@
+﻿<Window x:Class="BDMultiTool.Overlay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDMultiTool"
+        mc:Ignorable="d"
+        Title="Overlay" Height="720" Width="1280" Topmost="True" WindowStyle="None" Background="#02000000" Foreground="{x:Null}" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True">
+
+    <Window.Resources>
+
+        <Storyboard x:Key="SlideIn" >
+            <DoubleAnimation  Storyboard.TargetProperty="Width" From="0" To="150" Duration="0:0:.3" />
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:.6" />
+        </Storyboard>
+
+        <Storyboard x:Key="SlideOut">
+            <DoubleAnimation  Storyboard.TargetProperty="Width" From="150" To="0" Duration="0:0:.3" />
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:.3" />
+        </Storyboard>
+
+        <Style x:Key="NoDefaultMouseOver" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="RootGrid" MouseDown="RootGrid_MouseDown">
+
+        <Rectangle Stroke="#FFF93C40"/>
+        <Button x:Name="mainMenuButton" Margin="0,0,48,66" Style="{StaticResource NoDefaultMouseOver}" MouseEnter="customButton_MouseEnter" MouseLeave="customButton_MouseLeave"  BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="38" Height="38" VerticalAlignment="Bottom" Click="mainMenu_Click">
+            <Image Width="32" Height="32" Source="Resources/bdmtIcon.png" />
+        </Button>
+        <Menu x:Name="mainMenu" Margin="0,0,0,119" BorderBrush="#FFF93C40" BorderThickness="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="0" Opacity="0.9">
+            <Menu.Triggers>
+                
+            </Menu.Triggers>
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem x:Name="toDoList" Header="ToDo-List" Click="toDoListMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="Resources/todoListIcon.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem x:Name="macroMenu" Header="Macros" Click="macroMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="Resources/macroMenuIcon.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem x:Name="settingsMenu" Header="Settings">
+                <MenuItem.Icon>
+                    <Image Source="Resources/settingsIcon.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem x:Name="exitMenu" Header="Exit" Click="exitMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="Resources/exitIcon.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+
+    </Grid>
+</Window>
