@@ -8,6 +8,8 @@ It is basically just a transparent WPF application laid on top of the game's cli
 --
 Current features in development are:
 
+[**70%**] **Core featues**
+
 [**DONE**] **Auto Macros**: This feature allows you to let a macro press a set of keys in a given interval, this will also allow people without a macro-keyboard to use keyboard-like macros. **(*1)**
 
 [**5%**] **ToDo-List**:       The ToDo-List as it's name may reveal is to manage a list of tasks that you're about to do ingame. There will also be a feature to set reminding notifications for a given date.
