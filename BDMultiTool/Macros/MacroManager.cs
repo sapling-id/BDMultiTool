@@ -27,6 +27,11 @@ namespace BDMultiTool.Macros {
 
             ownParentWindow = App.overlay.addWindowToGrid(macroGallery, "Macros");
             macroCreatWindow = App.overlay.addWindowToGrid(macroAddControl, "Create new macro");
+            App.overlay.addMenuItemToMenu("pack://application:,,,/Resources/macroMenuIcon.png", "Macros").Click += macroMenu_Click;
+        }
+
+        private void macroMenu_Click(object sender, RoutedEventArgs e) {
+            showMacroMenu();
         }
 
         public void showCreateMacroMenu() {

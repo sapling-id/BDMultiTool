@@ -1,6 +1,8 @@
 ﻿using BDMultiTool.Macros;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,16 @@ namespace BDMultiTool {
             return currentInnerWindow;
         }
 
+        public MenuItem addMenuItemToMenu(String uri, String header) {
+            MenuItem currentMenuItem = new MenuItem();
+            currentMenuItem.Header = header;
+            System.Windows.Controls.Image image = new System.Windows.Controls.Image();
+            image.Source = new BitmapImage(new Uri(uri));
+            currentMenuItem.Icon = image;
+            mainMenu.Items.Insert(0, currentMenuItem);
+            return currentMenuItem;
+        }
+
         private void mainMenu_Click(object sender, RoutedEventArgs e) {
             if(!menuVisible) {
                 ((Storyboard)FindResource("SlideIn")).Begin(mainMenu);
@@ -46,13 +58,6 @@ namespace BDMultiTool {
                 menuVisible = false;
             }
 
-        }
-
-        private void toDoListMenu_Click(object sender, RoutedEventArgs e) {
-        }
-
-        private void macroMenu_Click(object sender, RoutedEventArgs e) {
-            MacroManagerThread.macroManager.showMacroMenu();
         }
 
         private void exitMenu_Click(object sender, RoutedEventArgs e) {

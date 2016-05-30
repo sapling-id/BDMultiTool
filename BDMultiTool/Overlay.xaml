@@ -47,16 +47,7 @@
                     <VirtualizingStackPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem x:Name="toDoList" Header="ToDo-List" Click="toDoListMenu_Click">
-                <MenuItem.Icon>
-                    <Image Source="Resources/todoListIcon.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem x:Name="macroMenu" Header="Macros" Click="macroMenu_Click">
-                <MenuItem.Icon>
-                    <Image Source="Resources/macroMenuIcon.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
+
             <MenuItem x:Name="settingsMenu" Header="Settings">
                 <MenuItem.Icon>
                     <Image Source="Resources/settingsIcon.png"/>
