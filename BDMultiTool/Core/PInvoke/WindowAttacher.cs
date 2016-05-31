@@ -20,13 +20,15 @@ namespace BDMultiTool.Utilities {
             if(windowHandle.Equals(IntPtr.Zero)) {
                 Debug.WriteLine("could not pinvoke!");
                 System.Windows.MessageBox.Show("Make sure BDO isn't initially minimized and this application is running as admin.", "Could not attach to BDO", MessageBoxButton.OK, MessageBoxImage.Error);
-                //App.exit();
+                App.exit();
             } else {
                 this.windowHandle = windowHandle;
                 this.overlayWindow = overlayWindow;
                 windowEventHook = new WindowObserver(windowHandle, observedWindowEvent);
                 SetForegroundWindow(windowHandle);
-                SetFocus(windowHandle);
+
+                updateOverlay();
+                overlayWindow.Topmost = true;
 
                 Toaster.popToast("Info", "Welcome to BDMT v" + App.version);
             }

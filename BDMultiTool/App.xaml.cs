@@ -1,4 +1,5 @@
 ﻿using BDMultiTool.Macros;
+using BDMultiTool.Persistence;
 using BDMultiTool.Utilities;
 using BDMultiTool.Utilities.Core;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -28,6 +30,10 @@ namespace BDMultiTool {
         public static volatile Overlay overlay;
 
         public App() {
+            if (!Directory.Exists(BDMTConstants.WORKSPACE_NAME)) {
+                Directory.CreateDirectory(BDMTConstants.WORKSPACE_NAME);
+            }
+
             minimized = false;
 
             overlay = new Overlay();

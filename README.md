@@ -10,7 +10,7 @@ This tool only works if the game is run in windowed mode.
 --
 Current features in development are:
 
-[**70%**] **Core featues**
+[**DONE**] **Core featues**
 
 [**DONE**] **Auto Macros**: This feature allows you to let a macro press a set of keys in a given interval, this will also allow people without a macro-keyboard to use keyboard-like macros. **(*1)**
 

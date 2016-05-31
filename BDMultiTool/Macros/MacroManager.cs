@@ -1,4 +1,5 @@
-﻿using InputManager;
+﻿using BDMultiTool.Persistence;
+using InputManager;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -28,6 +29,13 @@ namespace BDMultiTool.Macros {
             ownParentWindow = App.overlay.addWindowToGrid(macroGallery, "Macros");
             macroCreatWindow = App.overlay.addWindowToGrid(macroAddControl, "Create new macro");
             App.overlay.addMenuItemToMenu("pack://application:,,,/Resources/macroMenuIcon.png", "Macros").Click += macroMenu_Click;
+
+            PersistenceContainer[] savedMacros = PersistenceUnitThread.persistenceUnit.loadContainersByType(typeof(CycleMacro).Name);
+            foreach(PersistenceContainer currentPersistenceContainer in savedMacros) {
+                CycleMacro newMacro = new CycleMacro();
+                newMacro.updateCycleMacroByPersistenceContainer(currentPersistenceContainer);
+                macros.GetOrAdd(newMacro.name, newMacro);
+            }
         }
 
         private void macroMenu_Click(object sender, RoutedEventArgs e) {
@@ -61,6 +69,7 @@ namespace BDMultiTool.Macros {
         public void addMacro(CycleMacro macroToAdd) {
             macroToAdd.pause();
             macros.GetOrAdd(macroToAdd.name, macroToAdd);
+            macroToAdd.persist();
         }
 
         public void update() {
@@ -75,16 +84,7 @@ namespace BDMultiTool.Macros {
                     Thread.Sleep(20);
                 }
                 if (currentMacroKeyValuePair.Value.lifeTimeOver()) {
-                    CycleMacro deletedMacro;
-                    while (!macros.TryRemove(currentMacroKeyValuePair.Key, out deletedMacro)) { }
-                    macroGallery.Dispatcher.Invoke((Action)(() => {
-                        foreach (MacroItemModel currentInnerMacroItemModel in macroGallery.macroItemModels) {
-                            if (currentInnerMacroItemModel.macroName == deletedMacro.name) {
-                                macroGallery.macroItemModels.Remove(currentInnerMacroItemModel);
-                                break;
-                            }
-                        }
-                    }));
+                    removeMacro(currentMacroKeyValuePair.Value);
                 } else {
                     MacroItemModel currentMacroItemModel = new MacroItemModel();
                     currentMacroItemModel.macroName = currentMacroKeyValuePair.Value.name;
@@ -94,6 +94,7 @@ namespace BDMultiTool.Macros {
                     currentMacroItemModel.lifeTimePercentage = currentMacroKeyValuePair.Value.getLifeTimePercentage();
                     currentMacroItemModel.keyString = currentMacroKeyValuePair.Value.getKeyString();
                     currentMacroItemModel.AddMode = false;
+
                     if(currentMacroKeyValuePair.Value.paused) {
                         currentMacroItemModel.Paused = true;
                         currentMacroItemModel.NotPaused = false;
@@ -101,7 +102,9 @@ namespace BDMultiTool.Macros {
                         currentMacroItemModel.Paused = false;
                         currentMacroItemModel.NotPaused = true;
                     }
+
                     macroItemModels.Add(currentMacroItemModel);
+
                     macroGallery.Dispatcher.Invoke((Action)(() => {
                         bool macroContained = false;
                         foreach(MacroItemModel currentInnerMacroItemModel in macroGallery.macroItemModels) {
@@ -127,6 +130,9 @@ namespace BDMultiTool.Macros {
         public void removeMacro(CycleMacro macro) {
             CycleMacro deletedMacro;
             while (!macros.TryRemove(macro.name, out deletedMacro)) { }
+
+            deletedMacro.deletePersistence();
+
             macroGallery.Dispatcher.Invoke((Action)(() => {
                 foreach (MacroItemModel currentInnerMacroItemModel in macroGallery.macroItemModels) {
                     if (currentInnerMacroItemModel.macroName == deletedMacro.name) {
@@ -135,11 +141,15 @@ namespace BDMultiTool.Macros {
                     }
                 }
             }));
+
         }
 
         public void removeMacroByName(String name) {
             CycleMacro deletedMacro;
             while (!macros.TryRemove(name, out deletedMacro)) { }
+
+            deletedMacro.deletePersistence();
+
             macroGallery.Dispatcher.Invoke((Action)(() => {
                 foreach (MacroItemModel currentInnerMacroItemModel in macroGallery.macroItemModels) {
                     if (currentInnerMacroItemModel.macroName == deletedMacro.name) {

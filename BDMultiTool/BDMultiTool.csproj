@@ -78,15 +78,21 @@
     <Compile Include="MovableUserControl.xaml.cs">
       <DependentUpon>MovableUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\Persistence\PersistenceDeserializer.cs" />
+    <Compile Include="Core\Persistence\PersistenceContainer.cs" />
+    <Compile Include="Core\Persistence\PersistenceSerializer.cs" />
+    <Compile Include="Core\Persistence\PersistenceUnit.cs" />
+    <Compile Include="Core\Persistence\PersistenceUnitThread.cs" />
     <Compile Include="Utilities\BoxKeyboardPair.cs" />
-    <Compile Include="Utilities\Core\MultiToolMarkUpThread.cs" />
-    <Compile Include="Utilities\Core\CustomNotifyIcon.cs" />
-    <Compile Include="Utilities\Core\ThreadManager.cs" />
-    <Compile Include="Utilities\Core\Toaster.cs" />
+    <Compile Include="Core\BDMTConstants.cs" />
+    <Compile Include="Core\MultiToolMarkUpThread.cs" />
+    <Compile Include="Core\CustomNotifyIcon.cs" />
+    <Compile Include="Core\ThreadManager.cs" />
+    <Compile Include="Core\Toaster.cs" />
     <Compile Include="Utilities\KeyToString.cs" />
-    <Compile Include="Utilities\PInvoke\WindowObserver.cs" />
-    <Compile Include="Utilities\PInvoke\WindowEventTypes.cs" />
-    <Compile Include="Utilities\PInvoke\WindowAttacher.cs" />
+    <Compile Include="Core\PInvoke\WindowObserver.cs" />
+    <Compile Include="Core\PInvoke\WindowEventTypes.cs" />
+    <Compile Include="Core\PInvoke\WindowAttacher.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

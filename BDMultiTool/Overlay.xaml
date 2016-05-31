@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDMultiTool"
         mc:Ignorable="d"
-        Title="Overlay" Height="720" Width="1280" Topmost="True" WindowStyle="None" Background="#02000000" Foreground="{x:Null}" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True">
+        Title="Overlay" Height="720" Width="1280" WindowStyle="None" Background="#02000000" Foreground="{x:Null}" ShowInTaskbar="False" ResizeMode="NoResize" AllowsTransparency="True">
 
     <Window.Resources>
 

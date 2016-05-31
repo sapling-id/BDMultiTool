@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BDMultiTool.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BDMultiTool.Macros {
     public class CycleMacro {
-        private LinkedList<System.Windows.Forms.Keys> key;
+        private LinkedList<System.Windows.Forms.Keys> keys;
         public bool paused { get; set; }
         public long interval { get; set;}
         public long lifetime { get; set; }
@@ -17,7 +18,7 @@ namespace BDMultiTool.Macros {
         private Stopwatch stopWatch;
 
         public CycleMacro(params System.Windows.Forms.Keys[] keys) {
-            key = new LinkedList<System.Windows.Forms.Keys>(keys);
+            this.keys = new LinkedList<System.Windows.Forms.Keys>(keys);
             name = "N/A";
             stopWatch = new Stopwatch();
             stopWatchTotalTime = new Stopwatch();
@@ -28,7 +29,7 @@ namespace BDMultiTool.Macros {
         }
 
         public CycleMacro() {
-            key = new LinkedList<System.Windows.Forms.Keys>();
+            keys = new LinkedList<System.Windows.Forms.Keys>();
             name = "N/A";
             stopWatch = new Stopwatch();
             stopWatchTotalTime = new Stopwatch();
@@ -39,7 +40,7 @@ namespace BDMultiTool.Macros {
         }
 
         public void addKey(System.Windows.Forms.Keys key) {
-            this.key.AddLast(key);
+            this.keys.AddLast(key);
         }
 
         public void start() {
@@ -68,7 +69,7 @@ namespace BDMultiTool.Macros {
         public String getKeyString() {
             StringBuilder stringBuilder = new StringBuilder();
             bool firstItem = true;
-            foreach(System.Windows.Forms.Keys currentKey in key) {
+            foreach(System.Windows.Forms.Keys currentKey in keys) {
                 if(!firstItem) {
                     stringBuilder.Append(", ");
                 } else {
@@ -185,7 +186,59 @@ namespace BDMultiTool.Macros {
         }
 
         public System.Windows.Forms.Keys[] getKeys() {
-            return key.ToArray<System.Windows.Forms.Keys>();
+            return keys.ToArray<System.Windows.Forms.Keys>();
+        }
+
+        public void updateCycleMacroByPersistenceContainer(PersistenceContainer temporaryPersistenceContainer) {
+            if (temporaryPersistenceContainer != null) {
+                this.name = temporaryPersistenceContainer.content.Element("name").Value;
+                this.interval = long.Parse(temporaryPersistenceContainer.content.Element("interval").Value);
+                this.lifetime = long.Parse(temporaryPersistenceContainer.content.Element("lifetime").Value);
+                addKeysByString(temporaryPersistenceContainer.content.Element("keys").Value);
+            }
+        }
+
+        public void persist() {
+            PersistenceUnitThread.persistenceUnit.addToPersistenceBuffer(PersistenceUnit.createPersistenceContainer(this.name + this.GetType().Name,
+                                                                                                                    this.GetType().Name,
+                                                                                                                    new String[][] {
+                                                                                                                        new String[] { "interval", interval.ToString() },
+                                                                                                                        new String[] { "lifetime", lifetime.ToString() },
+                                                                                                                        new String[] { "name", this.name },
+                                                                                                                        new String[] { "keys", getStringFromKeys() }
+                                                                                                                    }));
+
+        }
+
+        private String getStringFromKeys() {
+            StringBuilder stringBuilder = new StringBuilder();
+            bool firstElement = true;
+
+            foreach(System.Windows.Forms.Keys key in keys) {
+                if(!firstElement) {
+                    stringBuilder.Append(";");
+                } else {
+                    firstElement = false;
+                }
+                stringBuilder.Append((int)key);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        private void addKeysByString(String stringKeys) {
+            String[] separatedKeys = stringKeys.Split(';');
+
+            foreach(String currentKey in separatedKeys) {
+                if (currentKey != "" && currentKey.Length > 0) {
+                    keys.AddLast((System.Windows.Forms.Keys)int.Parse(currentKey));
+                }
+
+            }
+        }
+
+        public void deletePersistence() {
+            PersistenceUnitThread.persistenceUnit.deleteByKy(this.name + this.GetType().Name);
         }
     }
 }
