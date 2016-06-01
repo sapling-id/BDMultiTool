@@ -15,6 +15,9 @@ namespace BDMultiTool.Utilities {
     private IntPtr windowHandle;
         private WindowObserver windowEventHook;
         private Window overlayWindow;
+        private const uint WM_KEYDOWN = 0x100;
+        private const uint WM_KEYUP = 0x101;
+        private const uint WM_SETTEXT = 0x000c;
 
         public WindowAttacher(IntPtr windowHandle, Window overlayWindow) {
             if(windowHandle.Equals(IntPtr.Zero)) {
@@ -70,7 +73,15 @@ namespace BDMultiTool.Utilities {
             }
         }
 
+        public void sendKeypressMessage(System.Windows.Forms.Keys keyToSend) {
+            //SendMessage(windowHandle, (int)WM_SETTEXT, 0, "Test");
+            /*PostMessage(windowHandle, WM_KEYDOWN, ((IntPtr)keyToSend), (IntPtr)0);
+            Thread.Sleep(150);
+            PostMessage(windowHandle, WM_KEYUP, ((IntPtr)keyToSend), (IntPtr)0);*/
+        }
+
         public void sendKeypress(System.Windows.Forms.Keys keyToSend) {
+
             SetForegroundWindow(windowHandle);
             Keyboard.KeyPress(keyToSend);
             Thread.Sleep(80);
@@ -131,14 +142,20 @@ namespace BDMultiTool.Utilities {
             return windowLocation;
         }
 
-        [DllImport("USER32.DLL")]
+        [DllImport("user32.dll")]
         private static extern bool SetFocus(IntPtr hWnd);
 
-        [DllImport("USER32.DLL")]
+        [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        //public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        public static extern int SendMessage(IntPtr hWnd, int uMsg, int wParam, string lParam);
+        [DllImport("user32.dll")]
+        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT {

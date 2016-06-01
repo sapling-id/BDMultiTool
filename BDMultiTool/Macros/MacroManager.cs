@@ -174,7 +174,7 @@ namespace BDMultiTool.Macros {
         private void sendMultipleKeys(System.Windows.Forms.Keys[] keys) {
             foreach(System.Windows.Forms.Keys currentKey in keys) {
                 //App.windowAttacher.sendKeypress(currentKey);
-                App.windowAttacher.sendKeyDown(currentKey);
+                App.windowAttacher.sendKeypressMessage(currentKey);
             }
         }
 

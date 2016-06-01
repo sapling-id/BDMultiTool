@@ -1,6 +1,8 @@
 ﻿using BDMultiTool.Utilities.Core;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -10,12 +12,12 @@ using System.Xml.Linq;
 namespace BDMultiTool.Persistence {
     class PersistenceUnit {
         private const int BUFFER_MAX_SIZE = 10;
-        private Dictionary<String, PersistenceContainer> persistenceBuffer;
+        private volatile ConcurrentDictionary<String, PersistenceContainer> persistenceBuffer;
         private PersistenceSerializer serializer;
         private PersistenceDeserializer deserializer;
 
         public PersistenceUnit() {
-            persistenceBuffer = new Dictionary<String, PersistenceContainer>();
+            persistenceBuffer = new ConcurrentDictionary<String, PersistenceContainer>();
             serializer = new PersistenceSerializer(BDMTConstants.WORKSPACE_PATH);
             deserializer = new PersistenceDeserializer(BDMTConstants.WORKSPACE_PATH);
         }
@@ -32,7 +34,7 @@ namespace BDMultiTool.Persistence {
             if(persistenceBuffer.ContainsKey(currentPersistencePair.key)) {
                 persistenceBuffer[currentPersistencePair.key] = currentPersistencePair;
             } else {
-                persistenceBuffer.Add(currentPersistencePair.key, currentPersistencePair);
+                persistenceBuffer.TryAdd(currentPersistencePair.key, currentPersistencePair);
             }
 
             checkForPersist();
