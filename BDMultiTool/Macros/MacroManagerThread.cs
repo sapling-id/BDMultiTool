@@ -27,7 +27,7 @@ namespace BDMultiTool.Macros {
             while(keepWorking) {
                 if(App.appCoreIsInitialized && !App.minimized) {
                     macroManager.update();
-                    Thread.Sleep(100);
+                    Thread.Sleep(60);
                 } else {
                     Thread.Sleep(300);
                 }

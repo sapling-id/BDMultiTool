@@ -73,30 +73,23 @@ namespace BDMultiTool.Utilities {
             }
         }
 
-        public void sendKeypressMessage(System.Windows.Forms.Keys keyToSend) {
-            //SendMessage(windowHandle, (int)WM_SETTEXT, 0, "Test");
-            /*PostMessage(windowHandle, WM_KEYDOWN, ((IntPtr)keyToSend), (IntPtr)0);
-            Thread.Sleep(150);
-            PostMessage(windowHandle, WM_KEYUP, ((IntPtr)keyToSend), (IntPtr)0);*/
-        }
 
         public void sendKeypress(System.Windows.Forms.Keys keyToSend) {
-
             SetForegroundWindow(windowHandle);
             Keyboard.KeyPress(keyToSend);
-            Thread.Sleep(80);
+            Thread.Sleep(50);
         }
 
         public void sendKeyDown(System.Windows.Forms.Keys keyToSend) {
             SetForegroundWindow(windowHandle);
             Keyboard.KeyDown(keyToSend);
-            Thread.Sleep(80);
+            Thread.Sleep(50);
         }
 
         public void sendKeyUp(System.Windows.Forms.Keys keyToSend) {
             SetForegroundWindow(windowHandle);
             Keyboard.KeyUp(keyToSend);
-            Thread.Sleep(80);
+            Thread.Sleep(50);
         }
 
         private void updateOverlay() {
@@ -152,8 +145,8 @@ namespace BDMultiTool.Utilities {
         private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
         [DllImport("user32.dll")]
-        //public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-        public static extern int SendMessage(IntPtr hWnd, int uMsg, int wParam, string lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
         [DllImport("user32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 

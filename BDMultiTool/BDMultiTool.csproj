@@ -157,7 +157,6 @@
     <Resource Include="Resources\closeButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libraries\InputManager.dll" />
     <Resource Include="Resources\todoListIcon.png" />
     <Resource Include="Resources\macroMenuIcon.png" />
     <Resource Include="Resources\exitIcon.png" />
@@ -170,6 +169,9 @@
     <Resource Include="Resources\playMacroIcon.png" />
     <Resource Include="Resources\macroBackground.png" />
     <Resource Include="Resources\trayIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libraries\InputManager.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

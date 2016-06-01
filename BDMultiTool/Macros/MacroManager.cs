@@ -1,5 +1,4 @@
 ﻿using BDMultiTool.Persistence;
-using InputManager;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -173,8 +172,8 @@ namespace BDMultiTool.Macros {
 
         private void sendMultipleKeys(System.Windows.Forms.Keys[] keys) {
             foreach(System.Windows.Forms.Keys currentKey in keys) {
-                //App.windowAttacher.sendKeypress(currentKey);
-                App.windowAttacher.sendKeypressMessage(currentKey);
+                App.windowAttacher.sendKeypress(currentKey);
+                Thread.Sleep(10);
             }
         }
 

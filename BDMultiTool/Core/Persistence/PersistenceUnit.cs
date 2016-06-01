@@ -34,7 +34,7 @@ namespace BDMultiTool.Persistence {
             if(persistenceBuffer.ContainsKey(currentPersistencePair.key)) {
                 persistenceBuffer[currentPersistencePair.key] = currentPersistencePair;
             } else {
-                persistenceBuffer.TryAdd(currentPersistencePair.key, currentPersistencePair);
+                while (!persistenceBuffer.TryAdd(currentPersistencePair.key, currentPersistencePair)) { }
             }
 
             checkForPersist();
@@ -52,13 +52,11 @@ namespace BDMultiTool.Persistence {
 
         public void persist() {
             if(persistenceBuffer.Count > 0) {
-                Debug.WriteLine("\n\nStart saving...");
                 foreach (PersistenceContainer currentContainer in persistenceBuffer.Values) {
                     serializer.updateEntry(currentContainer);
                 }
                 persistenceBuffer.Clear();
                 serializer.save();
-                Debug.WriteLine("Saved!");
             }
         }
 
