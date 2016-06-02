@@ -1,4 +1,5 @@
 ﻿using BDMultiTool.Core;
+using BDMultiTool.Core.Notification;
 using BDMultiTool.Core.PInvoke;
 using BDMultiTool.Macros;
 using BDMultiTool.Persistence;

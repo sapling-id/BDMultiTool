@@ -50,6 +50,10 @@ namespace BDMultiTool.Persistence {
             return deserializer.loadAllContainersByType(type);
         }
 
+        public void deleteByType(String type) {
+            serializer.deleteByType(type);
+        }
+
         public void persist() {
             if(persistenceBuffer.Count > 0) {
                 foreach (PersistenceContainer currentContainer in persistenceBuffer.Values) {

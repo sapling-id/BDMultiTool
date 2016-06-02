@@ -63,6 +63,18 @@ namespace BDMultiTool.Persistence {
             }
         }
 
+        public void deleteByType(string type) {
+            List<PersistenceContainer> temporaryPersistencesList = new List<PersistenceContainer>();
+            IEnumerable<XElement> searchedPersistences = rootElement.Elements(BDMTConstants.PERSISTENCE_TAG)
+                                                                    .Where(persistence => persistence.Attribute(BDMTConstants.PERSISTENCE_ATTRIBUTE_TYPE_TAG).Value == type);
+            if (searchedPersistences != null) {
+                foreach (XElement currentElement in searchedPersistences) {
+                    currentElement.Remove();
+                    save();
+                }
+            }
+        }
+
         public void save() {
             persistenceDocument.Save(workspacePath + BDMTConstants.PERSISTENCE_FILE);
         }

@@ -41,6 +41,11 @@ namespace BDMultiTool.Core.Notification {
         }
 
         public void popToast(String title, String text) {
+            if(notified) {
+                notificationWindow.Dispatcher.Invoke((Action)(() => {
+                    ((Storyboard)notificationWindow.FindResource("SlideOut")).Begin(notificationWindow);
+                }));
+            }
             notificationWindow.Dispatcher.Invoke((Action)(() => {
                 notificationWindow.notificationTitle.Content = title;
                 notificationWindow.contentTextBox.Text = text;
@@ -50,7 +55,7 @@ namespace BDMultiTool.Core.Notification {
             SoundNotification.playNotificationSound();
 
             notified = true;
-            stopwatch.Start();
+            stopwatch.Restart();
         }
     }
 }

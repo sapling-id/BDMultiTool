@@ -1,4 +1,5 @@
-﻿using BDMultiTool.Macros;
+﻿using BDMultiTool.Core.Settings;
+using BDMultiTool.Macros;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,11 +31,14 @@ namespace BDMultiTool {
             menuVisible = false;
         }
 
-        public MovableUserControl addWindowToGrid(UserControl userControl, String title) {
+        public MovableUserControl addWindowToGrid(UserControl userControl, String title, bool noSavingFlag) {
             MovableUserControl currentInnerWindow = new MovableUserControl(RootGrid);
             currentInnerWindow.setTitle(title);
             currentInnerWindow.setGridContent(userControl);
             currentInnerWindow.Visibility = Visibility.Hidden;
+            if(noSavingFlag) {
+                currentInnerWindow.disableSaving();
+            }
             RootGrid.Children.Add(currentInnerWindow);
             return currentInnerWindow;
         }
@@ -60,6 +64,10 @@ namespace BDMultiTool {
 
         }
 
+        private void settingsMenu_Click(object sender, RoutedEventArgs e) {
+            SettingsThread.settings.showSettingsMenu();
+        }
+
         private void exitMenu_Click(object sender, RoutedEventArgs e) {
             App.exit();
         }
@@ -78,5 +86,7 @@ namespace BDMultiTool {
         private void customButton_MouseLeave(object sender, MouseEventArgs e) {
             ((Button)sender).Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 0, 0, 0));
         }
+
+
     }
 }

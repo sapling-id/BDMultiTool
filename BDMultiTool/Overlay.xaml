@@ -126,7 +126,7 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
 
-            <MenuItem x:Name="settingsMenu" Header="Settings">
+            <MenuItem x:Name="settingsMenu" Header="Settings" Click="settingsMenu_Click">
                 <MenuItem.Icon>
                     <Image Source="Resources/settingsIcon.png"/>
                 </MenuItem.Icon>

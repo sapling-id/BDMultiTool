@@ -84,6 +84,8 @@
     <Compile Include="Core\Notification\SoundNotification.cs" />
     <Compile Include="Core\Notification\ToasterThread.cs" />
     <Compile Include="Core\Persistence\XmlUtilities.cs" />
+    <Compile Include="Core\Settings\BdmtSettings.cs" />
+    <Compile Include="Core\Settings\SettingsThread.cs" />
     <Compile Include="MacroAddControl.xaml.cs">
       <DependentUpon>MacroAddControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +109,9 @@
     <Compile Include="Core\Persistence\PersistenceUnitThread.cs" />
     <Compile Include="NotificationWindow.xaml.cs">
       <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BoxKeyboardPair.cs" />
     <Compile Include="Core\BDMTConstants.cs" />
@@ -143,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Overlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,11 +9,9 @@ namespace BDMultiTool.Core.Notification {
         private static NVorbis.NAudioSupport.VorbisWaveReader vorbisReader;
         private static NAudio.Wave.WaveOut waveOut;
 
-        static SoundNotification() {
-            vorbisReader = new NVorbis.NAudioSupport.VorbisWaveReader(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE);
-        }
-
         public static void playNotificationSound() {
+            vorbisReader = new NVorbis.NAudioSupport.VorbisWaveReader(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE);
+
             waveOut = new NAudio.Wave.WaveOut();
             waveOut.PlaybackStopped += onPlaybackStopped;
             waveOut.Init(vorbisReader);
@@ -24,6 +22,9 @@ namespace BDMultiTool.Core.Notification {
         private static void onPlaybackStopped(object sender, EventArgs e) {
             waveOut.PlaybackStopped -= onPlaybackStopped;
             waveOut = null;
+
+            vorbisReader.Dispose();
+            vorbisReader = null;
         }
     }
 }

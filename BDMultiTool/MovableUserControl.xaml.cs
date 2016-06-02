@@ -28,12 +28,22 @@ namespace BDMultiTool {
         private Point anchorPoint;
         private Point currentMousePosition;
         public String lockedCollider { private set; get; }
+        private bool shouldSave;
         private Grid parent;
 
         public MovableUserControl(Grid parent) {
             InitializeComponent();
             anchorPoint = new Point();
             this.parent = parent;
+            shouldSave = true;
+        }
+
+        public void disableSaving() {
+            shouldSave = false;
+        }
+
+        public void enableSaving() {
+            shouldSave = true;
         }
 
         public void setTitle(String title) {
@@ -169,14 +179,17 @@ namespace BDMultiTool {
         }
 
         public void persitCurrentWindow() {
-            PersistenceUnitThread.persistenceUnit.addToPersistenceBuffer(PersistenceUnit.createPersistenceContainer(this.subWindowTitle.Content.ToString() + this.GetType().Name, 
-                                                                                                                    this.GetType().Name, 
-                                                                                                                    new String[][] {
+            if(shouldSave) {
+                PersistenceUnitThread.persistenceUnit.addToPersistenceBuffer(PersistenceUnit.createPersistenceContainer(this.subWindowTitle.Content.ToString() + this.GetType().Name,
+                                                                                                                        this.GetType().Name,
+                                                                                                                        new String[][] {
                                                                                                                         new String[] { "height", this.Height.ToString() },
                                                                                                                         new String[] { "width", this.Width.ToString() },
                                                                                                                         new String[] { "xOffset", anchorPoint.X.ToString() },
                                                                                                                         new String[] { "yOffset", anchorPoint.Y.ToString() }
-                                                                                                                    }));
+                                                                                                                        }));
+            }
+
             
         }
     }

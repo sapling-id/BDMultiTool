@@ -16,7 +16,7 @@ namespace BDMultiTool.Macros {
         private MacroGallery macroGallery;
         private MacroAddControl macroAddControl;
         private MovableUserControl ownParentWindow;
-        private MovableUserControl macroCreatWindow;
+        private MovableUserControl macroCreateWindow;
 
         public MacroManager() {
             macros = new ConcurrentDictionary<String, CycleMacro>();
@@ -25,8 +25,8 @@ namespace BDMultiTool.Macros {
 
             macroAddControl = new MacroAddControl();
 
-            ownParentWindow = App.overlay.addWindowToGrid(macroGallery, "Macros");
-            macroCreatWindow = App.overlay.addWindowToGrid(macroAddControl, "Create new macro");
+            ownParentWindow = App.overlay.addWindowToGrid(macroGallery, "Macros", false);
+            macroCreateWindow = App.overlay.addWindowToGrid(macroAddControl, "Create new macro", false);
             App.overlay.addMenuItemToMenu("pack://application:,,,/Resources/macroMenuIcon.png", "Macros").Click += macroMenu_Click;
 
             PersistenceContainer[] savedMacros = PersistenceUnitThread.persistenceUnit.loadContainersByType(typeof(CycleMacro).Name);
@@ -42,14 +42,14 @@ namespace BDMultiTool.Macros {
         }
 
         public void showCreateMacroMenu() {
-            macroCreatWindow.Dispatcher.Invoke((Action)(() => {
-                macroCreatWindow.Visibility = Visibility.Visible;
+            macroCreateWindow.Dispatcher.Invoke((Action)(() => {
+                macroCreateWindow.Visibility = Visibility.Visible;
             }));
         }
 
         public void hideCreateMacroMenu() {
-            macroCreatWindow.Dispatcher.Invoke((Action)(() => {
-                macroCreatWindow.Visibility = Visibility.Hidden;
+            macroCreateWindow.Dispatcher.Invoke((Action)(() => {
+                macroCreateWindow.Visibility = Visibility.Hidden;
             }));
         }
 
