@@ -1,4 +1,5 @@
-﻿using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core.Persistence;
+using BDMultiTool.Utilities.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,20 +23,7 @@ namespace BDMultiTool.Persistence {
         }
 
         private void initialize() {
-            if(!File.Exists(workspacePath + BDMTConstants.PERSISTENCE_FILE)) {
-                XmlWriterSettings xmlWriterSettings;
-                XmlWriter xmlWriter;
-                xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Indent = true;
-                xmlWriterSettings.IndentChars = "\t";
-                xmlWriter = XmlWriter.Create(workspacePath + BDMTConstants.PERSISTENCE_FILE, xmlWriterSettings);
-                xmlWriter.WriteStartDocument();
-                xmlWriter.WriteStartElement(BDMTConstants.PERSISTENCE_ROOT_TAG);
-                xmlWriter.WriteEndElement();
-                xmlWriter.WriteEndDocument();
-                xmlWriter.Dispose();
-                xmlWriter.Close();
-            }
+            XmlUtilities.checkForPersistenceFile(workspacePath);
 
             persistenceDocument = XDocument.Load(workspacePath + BDMTConstants.PERSISTENCE_FILE);
             rootElement = persistenceDocument.Element(BDMTConstants.PERSISTENCE_ROOT_TAG);

@@ -46,13 +46,35 @@ namespace BDMultiTool {
             this.contentGrid.Children.Add(userControl);
         }
 
-        private void GeneralRectangleMouseDown(object sender, MouseButtonEventArgs e) {
+        private void generalImageMouseDown(object sender, MouseButtonEventArgs e) {
             if (!windowEventInitialized) {
                 oldMousePosition = PointToScreen(e.GetPosition(this));
-                lockedCollider = (sender as Rectangle).Name;
-                (sender as Rectangle).CaptureMouse();
+                lockedCollider = (sender as Image).Name;
+                (sender as Image).CaptureMouse();
             }
             windowEventInitialized = true;
+        }
+
+        private void generalBorderMouseDown(object sender, MouseButtonEventArgs e) {
+            if (!windowEventInitialized) {
+                oldMousePosition = PointToScreen(e.GetPosition(this));
+                lockedCollider = (sender as Border).Name;
+                (sender as Border).CaptureMouse();
+            }
+            windowEventInitialized = true;
+        }
+
+
+        private void generalImageeMouseUp(object sender, MouseButtonEventArgs e) {
+            windowEventInitialized = false;
+            lockedCollider = "";
+            (sender as Image).ReleaseMouseCapture();
+        }
+
+        private void generalBorderMouseUp(object sender, MouseButtonEventArgs e) {
+            windowEventInitialized = false;
+            lockedCollider = "";
+            (sender as Border).ReleaseMouseCapture();
         }
 
         public void enableToggle(bool value) {
@@ -64,137 +86,40 @@ namespace BDMultiTool {
 
         }
 
-        private void GeneralRectangleMouseMove(object sender, MouseEventArgs e) {
+        private void dragControl(object sender, MouseEventArgs e) {
             if (windowEventInitialized) {
                 currentMousePosition = PointToScreen(e.GetPosition(this));
                 double distanceX = currentMousePosition.X - oldMousePosition.X;
                 double distanceY = currentMousePosition.Y - oldMousePosition.Y;
                 oldMousePosition = PointToScreen(e.GetPosition(this));
-                switch (lockedCollider) {
-                    case "TopBorder": {
-                            if ((this.Height - distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height - distanceY;
 
-                                translateForHeightResize(distanceY);
-                            }
-                        }
-                        break;
-                    case "BottomBorder": {
-                            if ((this.Height + distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height + distanceY;
+                translateBy(distanceX, distanceY);
+                persitCurrentWindow();
+            }
+        }
 
-                                translateForHeightResize(distanceY);
-                            }
+        private void resizeControl(object sender, MouseEventArgs e) {
+            if (windowEventInitialized) {
+                currentMousePosition = PointToScreen(e.GetPosition(this));
+                double distanceX = currentMousePosition.X - oldMousePosition.X;
+                double distanceY = currentMousePosition.Y - oldMousePosition.Y;
+                oldMousePosition = PointToScreen(e.GetPosition(this));
 
-                        }
-                        break;
-                    case "LeftBorder": {
-                            if ((this.Width - distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width - distanceX;
+                if ((this.Width + distanceX) < minSize) {
+                    this.Width = minSize;
+                } else {
+                    this.Width = this.Width + distanceX;
 
-                                translateForWidthResize(distanceX);
-                            }
-
-
-                        }
-                        break;
-                    case "RightBorder": {
-                            if ((this.Width + distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width + distanceX;
-
-                                translateForWidthResize(distanceX);
-                            }
-
-                        }
-                        break;
-                    case "BottomLeftBorder": {
-                            if ((this.Width - distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width - distanceX;
-
-                                translateForWidthResize(distanceX);
-                            }
-
-                            if ((this.Height + distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height + distanceY;
-
-                                translateForHeightResize(distanceY);
-                            }
-                        }
-                        break;
-                    case "BottomRightBorder": {
-                            if ((this.Width + distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width + distanceX;
-
-                                translateForWidthResize(distanceX);
-                            }
-
-                            if ((this.Height + distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height + distanceY;
-
-                                translateForHeightResize(distanceY);
-                            }
-                        }
-                        break;
-                    case "TopLeftBorder": {
-                            if ((this.Width - distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width - distanceX;
-
-                                translateForWidthResize(distanceX);
-                            }
-
-                            if ((this.Height - distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height - distanceY;
-
-                                translateForHeightResize(distanceY);
-                            }
-                        }
-                        break;
-                    case "TopRightBorder": {
-                            if ((this.Width + distanceX) < minSize) {
-                                this.Width = minSize;
-                            } else {
-                                this.Width = this.Width + distanceX;
-
-                                translateForWidthResize(distanceX);
-                            }
-
-                            if ((this.Height - distanceY) < minSize) {
-                                this.Height = minSize;
-                            } else {
-                                this.Height = this.Height - distanceY;
-
-                                translateForHeightResize(distanceY);
-                            }
-                        }
-                        break;
-                    case "DragHighlighter": {
-                            translateBy(distanceX, distanceY);
-                        }
-                        break;
-                    default:
-                        break;
+                    translateForWidthResize(distanceX);
                 }
 
+                if ((this.Height + distanceY) < minSize) {
+                    this.Height = minSize;
+                } else {
+                    this.Height = this.Height + distanceY;
+
+                    translateForHeightResize(distanceY);
+                }
                 persitCurrentWindow();
             }
         }
@@ -227,20 +152,6 @@ namespace BDMultiTool {
 
             anchorPoint.X = transform.X;
             anchorPoint.Y = transform.Y;
-        }
-
-        private void GeneralRectangleMouseUp(object sender, MouseButtonEventArgs e) {
-            windowEventInitialized = false;
-            lockedCollider = "";
-            (sender as Rectangle).ReleaseMouseCapture();
-        }
-
-        private void RectangleHighlightMouseEnter(object sender, MouseEventArgs e) {
-            (sender as Rectangle).Opacity = 0.8;
-        }
-
-        private void RectangleHighlightMouseLeave(object sender, MouseEventArgs e) {
-            (sender as Rectangle).Opacity = 0.5;
         }
 
         private void closeButton_MouseUp(object sender, MouseButtonEventArgs e) {

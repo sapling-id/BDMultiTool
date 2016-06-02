@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Persistence\XmlUtilities.cs" />
     <Compile Include="MacroAddControl.xaml.cs">
       <DependentUpon>MacroAddControl.xaml</DependentUpon>
     </Compile>
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libraries\InputManager.dll" />
+    <Resource Include="Resources\resizeIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
