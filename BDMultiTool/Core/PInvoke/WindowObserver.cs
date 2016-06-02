@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BDMultiTool.Utilities {
+namespace BDMultiTool.Core.PInvoke {
     class WindowObserver {
         private static IntPtr windowHandle;
         private static IntPtr eventHook;

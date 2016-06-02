@@ -1,5 +1,4 @@
-﻿using BDMultiTool.Utilities;
-using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +23,10 @@ namespace BDMultiTool.Persistence {
 
         public void work() {
             while (keepWorking) {
-                if (App.appCoreIsInitialized && !App.minimized) {
+                if (App.appCoreIsInitialized) {
                     persistenceUnit.persist();
                     Thread.Sleep(1000);
-                } else {
-                    Thread.Sleep(800);
-                }
+                } 
 
             }
         }

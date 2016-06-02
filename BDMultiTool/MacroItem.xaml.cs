@@ -20,11 +20,8 @@ namespace BDMultiTool {
     /// Interaction logic for MacroItem.xaml
     /// </summary>
     public partial class MacroItem : UserControl {
-        private bool paused;
-
         public MacroItem() {
             InitializeComponent();
-            paused = true;
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e) {
@@ -40,14 +37,20 @@ namespace BDMultiTool {
 
         private void playButton_Click(object sender, RoutedEventArgs e) {
             MacroManagerThread.macroManager.getMacroByName((this.DataContext as MacroItemModel).macroName).resume();
-            (this.DataContext as MacroItemModel).Paused = false;
-            (this.DataContext as MacroItemModel).NotPaused = true;
+            if(!MacroManagerThread.macroManager.getMacroByName((this.DataContext as MacroItemModel).macroName).paused) {
+                (this.DataContext as MacroItemModel).Paused = false;
+                (this.DataContext as MacroItemModel).NotPaused = true;
+            }
+
         }
 
         private void pauseButton_Click(object sender, RoutedEventArgs e) {
             MacroManagerThread.macroManager.getMacroByName((this.DataContext as MacroItemModel).macroName).pause();
-            (this.DataContext as MacroItemModel).Paused = true;
-            (this.DataContext as MacroItemModel).NotPaused = false;
+            if(MacroManagerThread.macroManager.getMacroByName((this.DataContext as MacroItemModel).macroName).paused) {
+                (this.DataContext as MacroItemModel).Paused = true;
+                (this.DataContext as MacroItemModel).NotPaused = false;
+            }
+
         }
 
         private void customButton_MouseEnter(object sender, MouseEventArgs e) {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BDMultiTool.Utilities.Core {
+namespace BDMultiTool.Core {
     interface MultiToolMarkUpThread {
     }
 }

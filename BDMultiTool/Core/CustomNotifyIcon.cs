@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
 
-namespace BDMultiTool.Utilities.Core {
+namespace BDMultiTool.Core {
     class CustomNotifyIcon {
         private NotifyIcon notifyIcon;
         private static CustomNotifyIcon ownInstance;

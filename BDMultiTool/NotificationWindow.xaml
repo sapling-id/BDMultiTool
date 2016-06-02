@@ -1,0 +1,34 @@
+﻿<Window x:Class="BDMultiTool.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDMultiTool"
+        mc:Ignorable="d"
+        Title="NotificationWindow" Height="135" Width="300" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" ShowInTaskbar="False">
+
+    <Window.Resources>
+
+        <Storyboard x:Key="SlideIn" >
+            <DoubleAnimation  Storyboard.TargetProperty="Height" From="0" To="135" Duration="0:0:.3" />
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:.6" />
+        </Storyboard>
+
+        <Storyboard x:Key="SlideOut">
+            <DoubleAnimation  Storyboard.TargetProperty="Height" From="135" To="0" Duration="0:0:.3" />
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:.3" />
+        </Storyboard>
+    </Window.Resources>
+
+
+    <Border x:Name="outerBorder" CornerRadius="12" Background="#E55D5D5D">
+        <Grid >
+            <Border x:Name="dragKnobBackground" Margin="0" Height="22" VerticalAlignment="Top" CornerRadius="12,12,0,0" Background="#B2F93C40" />
+            <Label x:Name="notificationTitle" Content="Sub-Window-Title" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="White" FontSize="9" Margin="4,0,0,0"/>
+            <Grid Margin="4,22,4,10">
+                <TextBox x:Name="contentTextBox" HorizontalAlignment="Left" Height="80" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="274" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFE2E2E2"/>
+            </Grid>
+            <Image x:Name="closeButton" Margin="0,2,4,0" VerticalAlignment="Top" Height="15" Source="Resources/closeButton.png" UseLayoutRounding="True" HorizontalAlignment="Right" Width="15" MouseUp="closeButton_MouseUp"/>
+        </Grid>
+    </Border>
+</Window>

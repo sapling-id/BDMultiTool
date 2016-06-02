@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BDMultiTool.Utilities {
+namespace BDMultiTool.Core {
     public class ThreadManager {
         private static ThreadManager ownInstance;
         private LinkedList<Thread> bdmtThreads;

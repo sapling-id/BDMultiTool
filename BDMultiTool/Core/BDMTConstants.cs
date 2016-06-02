@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BDMultiTool.Utilities.Core {
+namespace BDMultiTool.Core {
     class BDMTConstants {
         //general
         public const String WORKSPACE_NAME = "bdmtWorkspace";
         public const String WORKSPACE_PATH = WORKSPACE_NAME + "\\";
         public const String PERSISTENCE_FILE = "persistence.xml";
+        public const String NOTIFICATION_SOUND_FILE = "notificationSound.ogg";
 
         //xml constants
         public const String PERSISTENCE_ROOT_TAG = "Persistences";

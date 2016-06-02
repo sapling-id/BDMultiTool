@@ -1,6 +1,5 @@
 ﻿using BDMultiTool.Macros;
 using BDMultiTool.Persistence;
-using BDMultiTool.Utilities.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

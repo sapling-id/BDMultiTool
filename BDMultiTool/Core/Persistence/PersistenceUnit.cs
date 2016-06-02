@@ -1,4 +1,4 @@
-﻿using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

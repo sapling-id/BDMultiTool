@@ -1,7 +1,7 @@
-﻿using BDMultiTool.Macros;
+﻿using BDMultiTool.Core;
+using BDMultiTool.Core.PInvoke;
+using BDMultiTool.Macros;
 using BDMultiTool.Persistence;
-using BDMultiTool.Utilities;
-using BDMultiTool.Utilities.Core;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,6 +32,11 @@ namespace BDMultiTool {
         public App() {
             if (!Directory.Exists(BDMTConstants.WORKSPACE_NAME)) {
                 Directory.CreateDirectory(BDMTConstants.WORKSPACE_NAME);
+
+            }
+
+            if( !File.Exists(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE)) {
+                File.WriteAllBytes(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE, BDMultiTool.Properties.Resources.notificationSound);
             }
 
             minimized = false;
@@ -66,6 +71,7 @@ namespace BDMultiTool {
 
         public static void exit() {
             CustomNotifyIcon.dispose();
+            PersistenceUnitThread.persistenceUnit.persist();
             Environment.Exit(0);
         }
     }

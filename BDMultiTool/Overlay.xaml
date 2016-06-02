@@ -113,8 +113,6 @@
     </Window.Resources>
 
     <Grid x:Name="RootGrid" MouseDown="RootGrid_MouseDown">
-
-        <Rectangle Stroke="#FFF93C40"/>
         <Button x:Name="mainMenuButton" Margin="0,0,48,66" Style="{StaticResource NoDefaultMouseOver}" MouseEnter="customButton_MouseEnter" MouseLeave="customButton_MouseLeave"  BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Right" Width="38" Height="38" VerticalAlignment="Bottom" Click="mainMenu_Click">
             <Image Width="32" Height="32" Source="Resources/bdmtIcon.png" />
         </Button>

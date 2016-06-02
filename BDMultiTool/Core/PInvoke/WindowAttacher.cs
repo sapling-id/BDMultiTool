@@ -1,4 +1,4 @@
-﻿using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core.Notification;
 using InputManager;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BDMultiTool.Utilities {
+namespace BDMultiTool.Core.PInvoke {
     public class WindowAttacher {
     private IntPtr windowHandle;
         private WindowObserver windowEventHook;
@@ -33,7 +33,7 @@ namespace BDMultiTool.Utilities {
                 updateOverlay();
                 overlayWindow.Topmost = true;
 
-                Toaster.popToast("Info", "Welcome to BDMT v" + App.version);
+                ToasterThread.toaster.popToast("Info", "Welcome to BDMT v" + App.version);
             }
 
         }
@@ -50,7 +50,7 @@ namespace BDMultiTool.Utilities {
                         App.minimized = true;
                         overlayWindow.Hide();
 
-                        Toaster.popToast("Info", "BDMT has been minimized!");
+                        ToasterThread.toaster.popToast("Info", "BDMT has been minimized!");
                     }
                     break;
                 case WindowEventTypes.EVENT_OBJECT_LOCATIONCHANGE: {

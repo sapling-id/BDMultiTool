@@ -1,5 +1,4 @@
-﻿using BDMultiTool.Utilities;
-using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

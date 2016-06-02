@@ -1,5 +1,5 @@
-﻿using BDMultiTool.Core.Persistence;
-using BDMultiTool.Utilities.Core;
+﻿using BDMultiTool.Core;
+using BDMultiTool.Core.Persistence;
 using System;
 using System.Collections.Generic;
 using System.IO;

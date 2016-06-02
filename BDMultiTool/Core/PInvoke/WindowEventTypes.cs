@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BDMultiTool.Utilities {
+namespace BDMultiTool.Core.PInvoke {
     public class WindowEventTypes {
         public const int EVENT_OBJECT_LOCATIONCHANGE = 0x800B;
         public const int EVENT_SYSTEM_FOREGROUND = 0x0003;
