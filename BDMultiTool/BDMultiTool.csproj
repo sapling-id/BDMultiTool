@@ -182,7 +182,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\notificationSound.ogg" />
+    <None Include="Resources\notifySound.ogg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

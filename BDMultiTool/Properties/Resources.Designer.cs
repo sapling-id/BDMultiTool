@@ -63,9 +63,9 @@ namespace BDMultiTool.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] notificationSound {
+        internal static byte[] notifySound {
             get {
-                object obj = ResourceManager.GetObject("notificationSound", resourceCulture);
+                object obj = ResourceManager.GetObject("notifySound", resourceCulture);
                 return ((byte[])(obj));
             }
         }

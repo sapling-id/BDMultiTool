@@ -37,7 +37,7 @@ namespace BDMultiTool {
             }
 
             if( !File.Exists(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE)) {
-                File.WriteAllBytes(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE, BDMultiTool.Properties.Resources.notificationSound);
+                File.WriteAllBytes(BDMTConstants.WORKSPACE_PATH + BDMTConstants.NOTIFICATION_SOUND_FILE, BDMultiTool.Properties.Resources.notifySound);
             }
 
             minimized = false;
